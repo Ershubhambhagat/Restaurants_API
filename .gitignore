@@ -4,3 +4,7 @@
 
 /.vs
 /Restaurants.API/.vs/Restaurants.API
+/Restaurants.API/obj
+/Restaurants.API/bin/Debug/net8.0
+/Restaurants.API/.vs/ProjectEvaluation
+/Restaurants.Application/obj
