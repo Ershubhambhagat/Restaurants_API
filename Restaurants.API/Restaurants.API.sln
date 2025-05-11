@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notes", "Notes", "{AA78DFD4
 		TextFile1.txt = TextFile1.txt
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurants.Infrasturacture", "..\Restaurants.Infrasturacture\Restaurants.Infrasturacture.csproj", "{DE71D024-5AE9-4F8B-AD3A-5EE7F56FAE40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurants.Infrastructure", "..\Restaurants.Infrastructure\Restaurants.Infrastructure.csproj", "{7E127E91-6980-4E25-8E17-698A0CF3B861}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +34,10 @@ Global
 		{3911C650-7262-4063-98A1-14CB6FEF79AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3911C650-7262-4063-98A1-14CB6FEF79AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3911C650-7262-4063-98A1-14CB6FEF79AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE71D024-5AE9-4F8B-AD3A-5EE7F56FAE40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE71D024-5AE9-4F8B-AD3A-5EE7F56FAE40}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE71D024-5AE9-4F8B-AD3A-5EE7F56FAE40}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE71D024-5AE9-4F8B-AD3A-5EE7F56FAE40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E127E91-6980-4E25-8E17-698A0CF3B861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E127E91-6980-4E25-8E17-698A0CF3B861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E127E91-6980-4E25-8E17-698A0CF3B861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E127E91-6980-4E25-8E17-698A0CF3B861}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

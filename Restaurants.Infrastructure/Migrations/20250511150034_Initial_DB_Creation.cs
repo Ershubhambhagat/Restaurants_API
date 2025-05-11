@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace Restaurants.Infrasturacture.Migrations
+namespace Restaurants.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDBCrete2 : Migration
+    public partial class Initial_DB_Creation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

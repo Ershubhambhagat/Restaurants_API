@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Restaurants.Infrasturacture.Persistence;
+using Restaurants.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace Restaurants.Infrasturacture.Migrations
+namespace Restaurants.Infrastructure.Migrations
 {
     [DbContext(typeof(RestaurantsDbContext))]
-    [Migration("20250508051315_InitialDBCrete2")]
-    partial class InitialDBCrete2
+    [Migration("20250511150034_Initial_DB_Creation")]
+    partial class Initial_DB_Creation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
