@@ -1,12 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using Restaurants.API.Controllers;
 using Restaurants.Infrastructure.Extensions;
-using Restaurants.Infrastructure.Persistence;
-using System;
-internal class Program
-{
-    private static void Main(string[] args)
-    {
+using Restaurants.Infrastructure.Seeders;
+
+    
         //using Restaurants.Infrasturacture.Extensions1
         var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +23,11 @@ internal class Program
       
 
         var app = builder.Build();
+        //This will construct RestaurantsSeeders before start app
+        var scope =app.Services.CreateScope();
+        var seeder = scope.ServiceProvider.GetRequiredService<IRestaurantsSeeders>();
+
+        await seeder.Seed();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
@@ -43,5 +43,3 @@ internal class Program
         app.MapControllers();
 
         app.Run();
-    }
-}
