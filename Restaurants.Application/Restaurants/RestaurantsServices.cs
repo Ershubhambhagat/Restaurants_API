@@ -1,4 +1,5 @@
 ﻿
+using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Restaurants.Application.Restaurants.DTOs;
 using Restaurants.Domain.Entities;
@@ -6,7 +7,7 @@ using Restaurants.Domain.Repositor;
 
 namespace Restaurants.Application.Restaurants;
 internal class RestaurantsServices(IRestaurantsRepository restaurantsRepository,
-    ILogger<RestaurantsServices> logger
+    ILogger<RestaurantsServices> logger,IMapper mapper
     ) : IRestaurantsServices
 {
     #region GetAllRestaurants
@@ -28,7 +29,8 @@ internal class RestaurantsServices(IRestaurantsRepository restaurantsRepository,
         //}); 
         #endregion
 
-        var restaurantDtos = restaurant.Select(RestaurantDto.FromEntity);
+        //var restaurantDtos = restaurant.Select(RestaurantDto.FromEntity);
+        var restaurantDtos =mapper.Map<IEnumerable<RestaurantDto>>(restaurant);//From AutoMapper
         return restaurantDtos!;
     }
 
@@ -39,8 +41,10 @@ internal class RestaurantsServices(IRestaurantsRepository restaurantsRepository,
     public async Task<RestaurantDto?> GetById(int Id)
     {
         
-        var rastaurant = await restaurantsRepository.GetByIdAsync(Id);
-        var restaurantDtos=RestaurantDto.FromEntity(rastaurant);
+        var restaurant = await restaurantsRepository.GetByIdAsync(Id);
+        //var restaurantDtos=RestaurantDto.FromEntity(rastaurant);
+        var restaurantDtos = mapper.Map<RestaurantDto>(restaurant);//From AutoMapper
+
         return restaurantDtos;
     } 
     #endregion

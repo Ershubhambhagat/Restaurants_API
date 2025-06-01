@@ -16,21 +16,23 @@ public class RestaurantDto
     public string? PinCode { get; set; }
     public List<DishDto> Dishes { get; set; } = [];
 
-    public static RestaurantDto? FromEntity(Restaurant restaurants)// everytime we are not going to map 
-    {
-        if (restaurants == null) return null;
-        return new RestaurantDto()
-        {
+    #region Replace with Automapper
 
-            Category = restaurants.Category,
-            Description = restaurants.Description,
-            Id = restaurants.Id,
-            HasDelivery = restaurants.HasDelivery,
-            Name = restaurants.Name,
-            City = restaurants.Address?.City,
-            Street = restaurants.Address.Street,
-            PinCode = restaurants.Address.PinCode,
-            Dishes = restaurants.Dishes.Select(DishDto.FromEntity).ToList()
-        };
-    }
+    //public static RestaurantDto? FromEntity(Restaurant restaurants)// everytime we are not going to map so i map one place
+    //{
+    //    if (restaurants == null) return null;
+    //    return new RestaurantDto()
+    //    {
+    //        Category = restaurants.Category,
+    //        Description = restaurants.Description,
+    //        Id = restaurants.Id,
+    //        HasDelivery = restaurants.HasDelivery,
+    //        Name = restaurants.Name,
+    //        City = restaurants.Address?.City,
+    //        Street = restaurants.Address.Street,
+    //        PinCode = restaurants.Address.PinCode,
+    //        Dishes = restaurants.Dishes.Select(DishDto.FromEntity).ToList()
+    //    };
+    //} 
+    #endregion
 }
