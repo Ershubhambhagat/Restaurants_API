@@ -7,9 +7,19 @@ using Restaurants.Domain.Repositor;
 
 namespace Restaurants.Application.Restaurants;
 internal class RestaurantsServices(IRestaurantsRepository restaurantsRepository,
-    ILogger<RestaurantsServices> logger,IMapper mapper
-    ) : IRestaurantsServices
+    ILogger<RestaurantsServices> logger,IMapper mapper) : IRestaurantsServices
 {
+    #region Create Restaurant
+    public async Task<int> Create(CreateRestaurantDto create)
+    {
+        logger.LogInformation("Createing a new restaurant ");
+        var Restaurant=mapper.Map<Restaurant>(create);
+       int id = await restaurantsRepository.CreateRestaurantAsync(Restaurant);
+        return id;
+
+    }
+    #endregion
+
     #region GetAllRestaurants
     public async Task<IEnumerable<RestaurantDto>> GetAllRestaurants()
     {
