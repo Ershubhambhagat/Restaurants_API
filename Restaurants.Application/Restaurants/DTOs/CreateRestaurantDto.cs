@@ -9,7 +9,7 @@ namespace Restaurants.Application.Restaurants.DTOs
 {
     public class CreateRestaurantDto
     {
-        [StringLength(50,MinimumLength =2,ErrorMessage ="Name should be more then 3 latter")]
+        // [StringLength(50,MinimumLength =2,ErrorMessage ="Name should be more then 3 latter")]  // Put in Create Restarant Dto Validator
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;
         public string Category { get; set; } = default!;

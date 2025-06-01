@@ -1,4 +1,6 @@
 ﻿
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurants.Application.Restaurants;
 
@@ -10,6 +12,8 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IRestaurantsServices ,RestaurantsServices>();
         services.AddAutoMapper(typeof(ServiceCollectionExtensions).Assembly);
+        services.AddValidatorsFromAssembly(typeof(ServiceCollectionExtensions).Assembly)
+            .AddFluentValidationAutoValidation();
     }
 }
-//we are not putting services in Programe.cs so i put hare for application 
+//we are not putting services in Programe.cs just invocing there 
