@@ -2,12 +2,12 @@
 using FluentValidation;
 using Restaurants.Application.Restaurants.DTOs;
 
-namespace Restaurants.Application.Viladater;
+namespace Restaurants.Application.Restaurants.Command.CreateRestaurant;
 
-public class CreateRestarantDtoValidator:AbstractValidator<CreateRestaurantDto>
+public class CreateRestarantCommandValidator:AbstractValidator<CreateRestaurantCommand>
 {
     private readonly List<string> ValidCategory = new List<string> { "Indian", "Bangali","A", "B", "1", "string" };
-    public CreateRestarantDtoValidator()
+    public CreateRestarantCommandValidator()
     {
         RuleFor(dto => dto.Name).Length(2, 50);
         RuleFor(dto => dto.Description).NotEmpty().WithMessage("Discription is required.");

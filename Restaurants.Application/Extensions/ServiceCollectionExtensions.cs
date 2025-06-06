@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddApplication(this IServiceCollection services)//Invoking this in Programe
     {
-        services.AddScoped<IRestaurantsServices ,RestaurantsServices>();
+        services.AddMediatR(cof=>cof.RegisterServicesFromAssemblies(typeof(ServiceCollectionExtensions).Assembly));
         services.AddAutoMapper(typeof(ServiceCollectionExtensions).Assembly);
         services.AddValidatorsFromAssembly(typeof(ServiceCollectionExtensions).Assembly)
             .AddFluentValidationAutoValidation();
