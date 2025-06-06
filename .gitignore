@@ -13,6 +13,8 @@
 /Restaurants.API/obj/Debug/net8.0/Restaurants.API.AssemblyInfoInputs.cache
 /Restaurants.Application/bin/Debug/net8.0/Restaurants.Domain.pdb
 *.dll
+/Restaurants.Domain/obj/
+/Restaurants.Domain/obj
 /Restaurants.Domain/obj/Debug/net8.0/Restaurants.Domain.dll
 /Restaurants.Domain/obj/Debug/net8.0/Restaurants.Domain.pdb
 /Restaurants.Domain/obj/Debug/net8.0/Restaurants.Domain.sourcelink.json
@@ -29,3 +31,4 @@
 /Restaurants.Application/bin/Debug/net8.0/Restaurants.Application.deps.json
 /Restaurants.Domain/obj/Debug/net8.0/Restaurants.Domain.csproj.CoreCompileInputs.cache
 /Restaurants.Domain/obj/Release/net8.0
+/Restaurants.Domain/obj/project.assets.json
