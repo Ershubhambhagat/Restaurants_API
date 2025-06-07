@@ -3,6 +3,7 @@ using Restaurants.Infrastructure.Extensions;
 using Restaurants.Infrastructure.Seeders;
 using Serilog;
 using Serilog.Events;
+using Serilog.Formatting.Compact;
 
 //using Restaurants.Infrasturacture.Extensions1
 var builder = WebApplication.CreateBuilder(args);
@@ -12,11 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Host.UseSerilog((context, configurstion) =>
-configurstion
-.MinimumLevel.Override("Microsoft",LogEventLevel.Warning)
-.MinimumLevel.Override("Microsoft.EntityFramworkCore", LogEventLevel.Information)
-.WriteTo.Console()
-
+configurstion.ReadFrom.Configuration(context.Configuration)
     );
 builder.Services.AddControllers();
 
