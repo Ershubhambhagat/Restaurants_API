@@ -5,7 +5,6 @@ using Restaurants.Infrastructure.Persistence;
 
 namespace Restaurants.Infrastructure.Repository;
 internal class RestaurantsRepository(RestaurantsDbContext dbContext) : IRestaurantsRepository//Here i bring DbContext
-
 {
     #region CreateRestaurantAsync
     public async Task<int> CreateRestaurantAsync(Restaurant restaurant)
@@ -17,6 +16,7 @@ internal class RestaurantsRepository(RestaurantsDbContext dbContext) : IRestaura
     }
 
     #endregion
+
     #region DeleteAsync
 
     public async Task DeleteAsync(Restaurant restaurant)
@@ -45,5 +45,11 @@ internal class RestaurantsRepository(RestaurantsDbContext dbContext) : IRestaura
     }
     #endregion
 
+    #region SaveChangesAsync
+    public async Task SaveChangesAsync()
+    {
+        await dbContext.SaveChangesAsync ();
+    }
+    #endregion
 
 }
