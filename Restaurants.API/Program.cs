@@ -1,6 +1,8 @@
 using Restaurants.Application.Extensions;
 using Restaurants.Infrastructure.Extensions;
 using Restaurants.Infrastructure.Seeders;
+using Serilog;
+using Serilog.Events;
 
 //using Restaurants.Infrasturacture.Extensions1
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Host.UseSerilog((context, configurstion) =>
+configurstion
+.MinimumLevel.Override("Microsoft",LogEventLevel.Warning)
+.MinimumLevel.Override("Microsoft.EntityFramworkCore", LogEventLevel.Information)
+.WriteTo.Console()
+
+    );
 builder.Services.AddControllers();
 
 
@@ -24,12 +33,14 @@ var seeder = scope.ServiceProvider.GetRequiredService<IRestaurantsSeeders>();
 
 await seeder.Seed();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
