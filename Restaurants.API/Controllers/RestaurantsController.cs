@@ -19,7 +19,7 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
 {
     #region GetAllRastaurants
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
     {
         var restaurant = await mediator.Send(new GetAllRestaurantsQueary());
         return Ok(restaurant);
@@ -28,7 +28,7 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
 
     #region GetById
     [HttpGet("{Id}")]
-    public async Task<IActionResult> GetById([FromRoute] int Id)
+    public async Task<ActionResult<RestaurantDto>> GetById([FromRoute] int Id)
     {
         var restaurant = await mediator.Send(new GetRestaurantByIdQuery(Id));
         if (restaurant == null)
@@ -40,6 +40,9 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
 
     #region UpdateRestaurant
     [HttpPatch("{Id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+
     public async Task<IActionResult> UpdateRestaurant([FromRoute] int Id, UpdateRestaurantCommand command)
     {
         command.Id = Id;
@@ -53,6 +56,8 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
 
     #region Create Restaurant
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status406NotAcceptable)]
     public async Task<IActionResult> CreateRestaurant([FromBody] CreateRestaurantCommand createRestaurantCommand)
     {
         if (!ModelState.IsValid)
@@ -66,6 +71,8 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
 
     #region DeleteRastaurant 
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteRastaurant([FromRoute] int id) 
     {
         var IsDeleted = await mediator.Send(new DeleteRestaurantCommand(id));
