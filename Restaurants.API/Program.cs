@@ -10,19 +10,22 @@ using Serilog.Formatting.Compact;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddScoped<ErrorHandlingMiddleWare>();
+builder.Services.AddScoped<RequestTimeLoggingMiddleware>();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Host.UseSerilog((context, configurstion) =>
 configurstion.ReadFrom.Configuration(context.Configuration)
     );
-builder.Services.AddControllers();
 
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ErrorHandlingMiddleWare>();
 
 
 
@@ -30,8 +33,15 @@ var app = builder.Build();
 //This will construct RestaurantsSeeders before start app
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<IRestaurantsSeeders>();
-
 await seeder.Seed();
+
+
+app.UseMiddleware<ErrorHandlingMiddleWare>();
+app.UseMiddleware<RequestTimeLoggingMiddleware>();
+app.UseSerilogRequestLogging();
+
+
+
 
 
 // Configure the HTTP request pipeline.
@@ -40,8 +50,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseMiddleware<ErrorHandlingMiddleWare>();
-app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
