@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurants.Domain.Repositor;
+using Restaurants.Domain.Repositories;
 using Restaurants.Infrastructure.Persistence;
 using Restaurants.Infrastructure.Repository;
 using Restaurants.Infrastructure.Seeders;
@@ -18,6 +19,8 @@ public static class ServiceCollectionExtensions
         .EnableSensitiveDataLogging());
         services.AddScoped<IRestaurantsSeeders,RestaurantsSeeders>();
         services.AddScoped<IRestaurantsRepository, RestaurantsRepository>();
+        services.AddScoped<IDishesRepository,DishesRepository>();
+
 
     }
 }
