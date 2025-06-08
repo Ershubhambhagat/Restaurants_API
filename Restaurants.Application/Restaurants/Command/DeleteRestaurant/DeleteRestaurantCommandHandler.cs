@@ -1,26 +1,21 @@
 ﻿using MediatR;
+using Restaurants.Domain.Exceptions;
 using Restaurants.Domain.Repositor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Restaurants.Application.Restaurants.Command.DeleteRestaurant
 {
-    public class DeleteRestaurantCommandHandler(IRestaurantsRepository restaurantsRepository) : IRequestHandler<DeleteRestaurantCommand, bool>
+    public class DeleteRestaurantCommandHandler(IRestaurantsRepository restaurantsRepository) :
+        IRequestHandler<DeleteRestaurantCommand>
     {
-        public async Task<bool> Handle(DeleteRestaurantCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteRestaurantCommand request, CancellationToken cancellationToken)
         {
             var restaurant = await restaurantsRepository.GetByIdAsync(request.Id);
             if (restaurant == null)
             {
-                return false;
+                throw new NotFoundException($"Restaurant with Id: {request.Id} doesn't Exast");
             }
           await restaurantsRepository.DeleteAsync(restaurant);
-            return true;
         }
         
     }

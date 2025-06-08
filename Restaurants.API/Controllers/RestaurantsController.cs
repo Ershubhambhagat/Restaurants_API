@@ -30,10 +30,8 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
     [HttpGet("{Id}")]
     public async Task<ActionResult<RestaurantDto>> GetById([FromRoute] int Id)
     {
-        var restaurant = await mediator.Send(new GetRestaurantByIdQuery(Id));
-        if (restaurant == null)
-            return NotFound();
-        return Ok(restaurant);
+        await mediator.Send(new GetRestaurantByIdQuery(Id));
+        return NoContent();
     }
 
     #endregion
@@ -46,10 +44,8 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> UpdateRestaurant([FromRoute] int Id, UpdateRestaurantCommand command)
     {
         command.Id = Id;
-        var IsUpdated = await mediator.Send(command);
-        if (IsUpdated)
-            return NoContent();
-        return NotFound();
+        await mediator.Send(command);
+        return NoContent();
     }
 
     #endregion
@@ -73,13 +69,11 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteRastaurant([FromRoute] int id) 
+    public async Task<IActionResult> DeleteRastaurant([FromRoute] int id)
     {
-        var IsDeleted = await mediator.Send(new DeleteRestaurantCommand(id));
-        if (IsDeleted)
-            return NoContent();
-        return NotFound();
+        await mediator.Send(new DeleteRestaurantCommand(id));
+        return NoContent();
     }
-#endregion
+    #endregion
 }
 

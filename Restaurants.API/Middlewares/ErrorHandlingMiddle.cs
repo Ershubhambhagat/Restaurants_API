@@ -1,4 +1,7 @@
 ﻿
+using Microsoft.AspNetCore.Http.HttpResults;
+using Restaurants.Domain.Exceptions;
+
 namespace Restaurants.API.Middlewares;
 
 public class ErrorHandlingMiddleWare(
@@ -9,6 +12,12 @@ public class ErrorHandlingMiddleWare(
 		try
 		{
 			await next.Invoke(context);
+		}
+		catch (NotFoundException notFound )
+		{
+			context.Response.StatusCode = 404;
+			await context.Response.WriteAsync(notFound.Message);
+			logger.LogWarning(notFound.Message);
 		}
 		catch (Exception ex)
 		{
