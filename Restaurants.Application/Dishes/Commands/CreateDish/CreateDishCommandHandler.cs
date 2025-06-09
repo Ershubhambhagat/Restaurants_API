@@ -21,7 +21,7 @@ public class CreateDishCommandHandler(ILogger<CreateDishCommandHandler> logger,
         logger.LogInformation("Creating New Dish :{@DishRequest}", request.Name);
         var IsRestaurant = await restaurantsRepository.GetByIdAsync(request.RestaurantId);
         if (IsRestaurant == null)
-            throw new NotFoundException($"Restaurant with Id: {request.RestaurantId} and name {request.Name}doesn't Exast");
+            throw new NotFoundException($"Restaurant with Id: {request.RestaurantId} and name {request.Name}does not Exist.");
         var dish = mapper.Map<Dish>(request);
         await dishesRepository.CreateDishAsync(dish);
     }
