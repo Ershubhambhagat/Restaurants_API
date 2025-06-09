@@ -14,15 +14,15 @@ public class CreateDishCommandHandler(ILogger<CreateDishCommandHandler> logger,
     IDishesRepository dishesRepository,
     IMapper mapper
 
-    ) : IRequestHandler<CreateDishCommand>
+    ) : IRequestHandler<CreateDishCommand,int>
 {
-    public async Task Handle(CreateDishCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateDishCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Creating New Dish :{@DishRequest}", request.Name);
         var IsRestaurant = await restaurantsRepository.GetByIdAsync(request.RestaurantId);
         if (IsRestaurant == null)
             throw new NotFoundException($"Restaurant with Id: {request.RestaurantId} and name {request.Name}does not Exist.");
         var dish = mapper.Map<Dish>(request);
-        await dishesRepository.CreateDishAsync(dish);
+        return await dishesRepository.CreateDishAsync(dish);
     }
 }

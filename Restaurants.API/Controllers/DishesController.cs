@@ -19,8 +19,8 @@ namespace Restaurants.API.Controllers
         public async Task<IActionResult> CreateDishAsync([FromRoute] int restaurantId, CreateDishCommand command)
         {
             command.RestaurantId = restaurantId;//Here I bind with command
-            await mediator.Send(command);
-            return Created();
+            var DishId=await mediator.Send(command);
+            return CreatedAtAction(nameof(GetByIdForRestaurant),new { restaurantId, DishId },command);
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DishDto>>> GetAllForRestaurant([FromRoute] int restaurantId)
@@ -29,7 +29,7 @@ namespace Restaurants.API.Controllers
             return Ok(dishes);
         }
         [HttpGet("{DishId}")]
-        public async Task<ActionResult<DishDto>> GetAllForRestaurant([FromRoute] int restaurantId, [FromRoute] int DishId)
+        public async Task<ActionResult<DishDto>> GetByIdForRestaurant([FromRoute] int restaurantId, [FromRoute] int DishId)
         {
             var dish = await mediator.Send(new GetDishByIdForRestaurantQuery(restaurantId, DishId));
             return Ok(dish);
