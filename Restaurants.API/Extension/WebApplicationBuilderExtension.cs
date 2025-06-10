@@ -10,6 +10,7 @@ public static class WebApplicationBuilderExtension
     public static void AddPresentation(this WebApplicationBuilder builder)
     {
         // Add services to the container.
+        builder.Services.AddAuthentication();
         builder.Services.AddControllers();
         builder.Services.AddSwaggerGen(c =>
         {
