@@ -38,3 +38,7 @@
 /Restaurants.Domain/obj/project.nuget.cache
 /Restaurants.Domain/obj/Restaurants.Domain.csproj.nuget.dgspec.json
 /Restaurants.Domain/obj/Restaurants.Domain.csproj.nuget.g.props
+/Restaurants.Domain/bin/Debug/net8.0/Restaurants.Domain.deps.json
+/Restaurants.Domain/obj/Debug/net8.0/Restaurants.Domain.csproj.FileListAbsolute.txt
+/Restaurants.Domain/obj/Restaurants.Domain.csproj.nuget.g.targets
+/Restaurants.API/Logs/Restaurant_API20250610.log
