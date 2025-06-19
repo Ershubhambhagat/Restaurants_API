@@ -10,6 +10,7 @@ using Restaurants.Application.Restaurants.DTOs;
 using Restaurants.Application.Restaurants.Queries;
 using Restaurants.Application.Restaurants.Queries.GetAllRestaurant;
 using Restaurants.Application.Restaurants.Queries.GetRestaurantById;
+using Restaurants.Domain.Entities;
 
 namespace Restaurants.API.Controllers;
 
@@ -32,8 +33,7 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
     [HttpGet("{Id}")]
     public async Task<ActionResult<RestaurantDto>> GetById([FromRoute] int Id)
     {
-        await mediator.Send(new GetRestaurantByIdQuery(Id));
-        return NoContent();
+        return await mediator.Send(new GetRestaurantByIdQuery(Id));
     }
 
     #endregion
