@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Restaurants.Domain.Entities;
 
-namespace Restaurants.Application.User.Command
+namespace Restaurants.Application.User.Command.UpdateUserDetails
 {
     internal class UpdateUserDetailsCommandHandler (ILogger<UpdateUserDetailsCommandHandler> logger,
         IUserContext userContext,IUserStore<Domain.Entities.User> userStore)     

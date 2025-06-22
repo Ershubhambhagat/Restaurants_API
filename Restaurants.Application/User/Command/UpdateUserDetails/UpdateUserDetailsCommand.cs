@@ -2,7 +2,7 @@
 
 using MediatR;
 
-namespace Restaurants.Application.User.Command;
+namespace Restaurants.Application.User.Command.UpdateUserDetails;
 
 public class UpdateUserDetailsCommand:IRequest
 {
