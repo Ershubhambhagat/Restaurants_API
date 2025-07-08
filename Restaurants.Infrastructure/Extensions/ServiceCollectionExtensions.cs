@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Restaurants.Domain.Entities;
 using Restaurants.Domain.Repositor;
 using Restaurants.Domain.Repositories;
+using Restaurants.Infrastructure.Authorization;
 using Restaurants.Infrastructure.Persistence;
 using Restaurants.Infrastructure.Repository;
 using Restaurants.Infrastructure.Seeders;
@@ -24,7 +25,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDishesRepository,DishesRepository>();
         services.AddIdentityApiEndpoints<User>()
             .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<RestaurantsDbContext>();
+            .AddEntityFrameworkStores<RestaurantsDbContext>()
+            .AddClaimsPrincipalFactory<RestaurantUserClaimsPrincipalFactory>(); 
 
     }
 }
