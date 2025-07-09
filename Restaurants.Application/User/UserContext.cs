@@ -27,7 +27,12 @@ public class UserContext(IHttpContextAccessor httpContextAccessor) : IUserContex
         var userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!.Value;
         var email = user.FindFirst(c => c.Type == ClaimTypes.Email)!.Value;
         var roles = user.Claims.Where(c => c.Type == ClaimTypes.Role)!.Select(c => c.Value);
+        var Nationaltity = user.FindFirst(c => c.Type == "Nationaltity")?.Value;
+        var DOBstring = user.FindFirst(c => c.Type == "DOB")?.Value;
+        var DOB = DOBstring == null ? (DateOnly?)null
+            : DateOnly.ParseExact(DOBstring,"dd-mm-yyyy");
 
-        return new CurrentUser(userId, email, roles);
+
+        return new CurrentUser(userId, email, roles, Nationaltity, DOB);
     }
 }

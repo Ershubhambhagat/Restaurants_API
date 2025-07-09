@@ -23,7 +23,7 @@ public class ErrorHandlingMiddleWare(
 		{
 			logger.LogError(ex,ex.Message);
 			context.Response.StatusCode = 500;
-			await context.Response.WriteAsync("Something went wronge.");
+			await context.Response.WriteAsync("Something went wronge Message: "+ ex.Message);
 		}
     }
 }

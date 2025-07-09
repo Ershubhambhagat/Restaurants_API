@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,7 @@ using Restaurants.Domain.Entities;
 using Restaurants.Domain.Repositor;
 using Restaurants.Domain.Repositories;
 using Restaurants.Infrastructure.Authorization;
+using Restaurants.Infrastructure.Authorization.Requirement;
 using Restaurants.Infrastructure.Persistence;
 using Restaurants.Infrastructure.Repository;
 using Restaurants.Infrastructure.Seeders;
@@ -28,6 +30,8 @@ public static class ServiceCollectionExtensions
             .AddEntityFrameworkStores<RestaurantsDbContext>()
             .AddClaimsPrincipalFactory<RestaurantUserClaimsPrincipalFactory>();
         services.AddAuthorizationBuilder()
-            .AddPolicy(PolicyNames.HasNationaltity, builder => builder.RequireClaim(AppClaimType.Nationaltity,"India"));
+            .AddPolicy(PolicyNames.HasNationaltity, builder => builder.RequireClaim(AppClaimType.Nationaltity, "India"))
+            .AddPolicy(PolicyNames.AtLeast20, bulder => bulder.AddRequirements(new MinimumAgeRequirement(20)));
+        services.AddScoped<IAuthorizationHandler,MinimumAgeRequirementHandler>();
     }
 }
