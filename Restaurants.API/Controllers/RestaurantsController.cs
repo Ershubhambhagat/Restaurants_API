@@ -12,6 +12,7 @@ using Restaurants.Application.Restaurants.Queries.GetAllRestaurant;
 using Restaurants.Application.Restaurants.Queries.GetRestaurantById;
 using Restaurants.Domain.Contanst;
 using Restaurants.Domain.Entities;
+using Restaurants.Infrastructure.Authorization;
 
 namespace Restaurants.API.Controllers;
 
@@ -34,7 +35,8 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
 
     #region GetById
     [HttpGet("{Id}")]
-    [Authorize(Roles =UserRoles.Admin)]
+    [Authorize(Policy= PolicyNames.HasNationaltity)]
+   // [Authorize(Roles =UserRoles.Admin)]
     public async Task<ActionResult<RestaurantDto>> GetById([FromRoute] int Id)
     {
         return await mediator.Send(new GetRestaurantByIdQuery(Id));

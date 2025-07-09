@@ -26,7 +26,8 @@ public static class ServiceCollectionExtensions
         services.AddIdentityApiEndpoints<User>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<RestaurantsDbContext>()
-            .AddClaimsPrincipalFactory<RestaurantUserClaimsPrincipalFactory>(); 
-
+            .AddClaimsPrincipalFactory<RestaurantUserClaimsPrincipalFactory>();
+        services.AddAuthorizationBuilder()
+            .AddPolicy(PolicyNames.HasNationaltity, builder => builder.RequireClaim(AppClaimType.Nationaltity,"India"));
     }
 }
