@@ -1,5 +1,6 @@
 ﻿
 
 >Dish Update and Delete API only work when Role is Owner or Admin
->Restaurant GetByID API only work when  Has Nationaltity Policy match
+>Restaurant GetByID API only work when Has Nationaltity Policy match
 >Dish GetAllForOneRestaurant API work if your AGE is 20 or More
+>Restaurant GetAll2WithAuth API only work when Owner have more then 2 Restaurant

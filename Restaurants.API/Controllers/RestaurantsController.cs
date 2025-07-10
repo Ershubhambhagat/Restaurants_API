@@ -33,6 +33,16 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
     }
     #endregion
 
+    #region GetAllRastaurants_MinimumumOwnerIs2Requirement
+    [HttpGet("GetAll2WithAuth")]
+    [Authorize(Policy =PolicyNames.Minimumum2Requirement)]
+    public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll2WithAuth()
+    {
+        var restaurant = await mediator.Send(new GetAllRestaurantsQueary());
+        return Ok(restaurant);
+    }
+    #endregion
+
     #region GetById
     [HttpGet("{Id}")]
     [Authorize(Policy= PolicyNames.HasNationaltity)]

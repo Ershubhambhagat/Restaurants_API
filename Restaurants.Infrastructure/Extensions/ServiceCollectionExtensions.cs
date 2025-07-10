@@ -10,6 +10,7 @@ using Restaurants.Domain.Repositor;
 using Restaurants.Domain.Repositories;
 using Restaurants.Infrastructure.Authorization;
 using Restaurants.Infrastructure.Authorization.Requirement;
+using Restaurants.Infrastructure.Authorization.Requirement.CreatedMultipleRestaurantRequiremt;
 using Restaurants.Infrastructure.Authorization.Services;
 using Restaurants.Infrastructure.Persistence;
 using Restaurants.Infrastructure.Repository;
@@ -32,9 +33,17 @@ public static class ServiceCollectionExtensions
             .AddEntityFrameworkStores<RestaurantsDbContext>()
             .AddClaimsPrincipalFactory<RestaurantUserClaimsPrincipalFactory>();
         services.AddAuthorizationBuilder()
-            .AddPolicy(PolicyNames.HasNationaltity, builder => builder.RequireClaim(AppClaimType.Nationaltity, "India"))
-            .AddPolicy(PolicyNames.AtLeast20, bulder => bulder.AddRequirements(new MinimumAgeRequirement(20)));
+            .AddPolicy(PolicyNames.HasNationaltity,
+            builder => builder.RequireClaim(AppClaimType.Nationaltity, "India"))
+            .AddPolicy(PolicyNames.AtLeast20,
+            bulder => bulder.AddRequirements(new MinimumAgeRequirement(20)))
+            .AddPolicy(PolicyNames.Minimumum2Requirement,
+            builder => builder.AddRequirements(new OwnerCreatedMultipleRestaurantRequiremt(2)));
         services.AddScoped<IAuthorizationHandler,MinimumAgeRequirementHandler>();
+        services.AddScoped<IAuthorizationHandler, OwnerCreatedMultipleRestaurantRequiremtHandler>();
+        
         services.AddScoped<IRestaurantAuthorizationServicce, RestaurantAuthorizationServicce>();
+
+
     }
 }
