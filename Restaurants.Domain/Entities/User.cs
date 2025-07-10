@@ -7,4 +7,5 @@ public class User:IdentityUser
 {
     public DateOnly? DOB { get; set; }
     public string? Nationaltity { get; set; } = null;
+    public List<Restaurant> OwnerRestaurent { get; set; } = [];
 }
