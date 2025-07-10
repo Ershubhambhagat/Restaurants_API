@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
+using Restaurants.Domain.Contanst;
 using Restaurants.Domain.Exceptions;
+using Restaurants.Domain.Interfaces;
 using Restaurants.Domain.Repositor;
 namespace Restaurants.Application.Restaurants.Command.UpdateRestaurant;
-public class UpdateRestaurantCommandHandler(IRestaurantsRepository restaurantsRepository,
+public class UpdateRestaurantCommandHandler(IRestaurantsRepository restaurantsRepository, IRestaurantAuthorizationServicce restaurantAuthorizationServicce,
     IMapper mapper) : IRequestHandler<UpdateRestaurantCommand>
 {
     public async Task Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
@@ -18,6 +20,9 @@ public class UpdateRestaurantCommandHandler(IRestaurantsRepository restaurantsRe
         //restaurant.HasDelivery = request.HasDelivery; 
         #endregion
         mapper.Map(request, restaurant);
+
+        if (!restaurantAuthorizationServicce.Authorize(restaurant, RessourceOption.Update))
+            throw new ForbidException();
         await restaurantsRepository.SaveChangesAsync();
     }
 }

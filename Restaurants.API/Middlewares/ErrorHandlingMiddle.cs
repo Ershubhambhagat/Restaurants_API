@@ -19,6 +19,12 @@ public class ErrorHandlingMiddleWare(
 			await context.Response.WriteAsync(notFound.Message);
 			logger.LogWarning(notFound.Message);
 		}
+		catch (ForbidException fb)
+		{
+            context.Response.StatusCode = 403;
+            await context.Response.WriteAsync(fb.Message);
+            logger.LogWarning("Access Forbidden ");
+        }
 		catch (Exception ex)
 		{
 			logger.LogError(ex,ex.Message);

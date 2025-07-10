@@ -14,7 +14,7 @@ internal class MinimumAgeRequirementHandler(ILogger<MinimumAgeRequirementHandler
         var currentUser = userContext.GetCurrentUser();
         if (currentUser == null)
         {
-            throw new NotFoundException($"No user Found or You are not authrize to this API Call");
+            throw new NotFoundException($"No user Found or You are not authrize to use this API Call");
         }
 
         logger.LogInformation($"User Email:{currentUser.Email} and DOB :{currentUser.DOB}");
