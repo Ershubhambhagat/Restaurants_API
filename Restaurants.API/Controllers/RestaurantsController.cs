@@ -26,9 +26,9 @@ public class RestaurantsController(IMediator mediator) : ControllerBase
     [AllowAnonymous]
     //[Authorize(Roles = UserRoles.User)]
 
-    public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll([FromQuery] GetAllRestaurantsQueary queary)
     {
-        var restaurant = await mediator.Send(new GetAllRestaurantsQueary());
+        var restaurant = await mediator.Send(queary);
         return Ok(restaurant);
     }
     #endregion

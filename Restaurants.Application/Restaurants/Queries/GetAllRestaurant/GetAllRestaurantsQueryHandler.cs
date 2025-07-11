@@ -3,11 +3,6 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Restaurants.Application.Restaurants.DTOs;
 using Restaurants.Domain.Repositor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Restaurants.Application.Restaurants.Queries.GetAllRestaurant
 {
@@ -20,9 +15,11 @@ namespace Restaurants.Application.Restaurants.Queries.GetAllRestaurant
         public async Task<IEnumerable<RestaurantDto>> Handle(GetAllRestaurantsQueary request, CancellationToken cancellationToken)
         {
             logger.LogInformation("Getting All Information");
-            var restaurant = await restaurantsRepository.GetAllAsync();
+            var restaurant = await restaurantsRepository.GetAllMatchAsync(request.SerchQuary);
             var restaurantDtos = mapper.Map<IEnumerable<RestaurantDto>>(restaurant);//From AutoMapper
             return restaurantDtos!;
         }
+
+
     }
 }

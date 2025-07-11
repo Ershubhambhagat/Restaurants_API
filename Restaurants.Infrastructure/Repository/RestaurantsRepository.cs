@@ -35,6 +35,18 @@ internal class RestaurantsRepository(RestaurantsDbContext dbContext) : IRestaura
     }
     #endregion
 
+    #region GetAllMatchAsync
+    public async Task<IEnumerable<Restaurant>> GetAllMatchAsync(string? SearchQuary)
+    {
+        var serchQuaryLower = SearchQuary?.ToLower();
+        var restarurant = await dbContext.Restaurants
+            .Where( q=> serchQuaryLower ==null ||q.Name.ToLower().Contains(serchQuaryLower)
+            || q.Description.ToLower().Contains(serchQuaryLower))
+            .ToListAsync();
+        return restarurant;
+    }
+    #endregion
+
     #region GetByIdAsync
     public async Task<Restaurant?> GetByIdAsync(int Id)
     {

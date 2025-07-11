@@ -1,6 +1,7 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using MediatR;
 using Restaurants.Application.Restaurants.DTOs;
 namespace Restaurants.Application.Restaurants.Queries.GetAllRestaurant;
-public class GetAllRestaurantsQueary :IRequest<IEnumerable<RestaurantDto>>{}
+public class GetAllRestaurantsQueary :IRequest<IEnumerable<RestaurantDto>>
+{
+    public string? SerchQuary { get; set; }
+}
