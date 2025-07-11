@@ -10,13 +10,16 @@ internal class RestaurantsSeeders(RestaurantsDbContext dbContext) : IRestaurants
 {
     public async Task Seed()
     {
+        #region GetPendingMigrations
         if (dbContext.Database.GetPendingMigrations().Any())
         {
             await dbContext.Database.MigrateAsync();
-        }
+        } 
+        #endregion
+
         if (await dbContext.Database.CanConnectAsync())// Checking connection 
         {
-            if(!dbContext.Restaurants.Any())// checking any data is there
+            if (!dbContext.Restaurants.Any())// checking any data is there
             {
                 var Restaurants = GetRestaurants();// if data is not there
                 dbContext.Restaurants.AddRange(Restaurants);//Insert Data
@@ -24,15 +27,12 @@ internal class RestaurantsSeeders(RestaurantsDbContext dbContext) : IRestaurants
             }
             if (!dbContext.Roles.Any())
             {
-                var roles= GetRoles();
+                var roles = GetRoles();
                 dbContext.Roles.AddRange(roles);
                 await dbContext.SaveChangesAsync();
             }
         }
     }
-
-
-
     #region GetRoles Seed
     private IEnumerable<IdentityRole> GetRoles()
     {
@@ -43,14 +43,19 @@ internal class RestaurantsSeeders(RestaurantsDbContext dbContext) : IRestaurants
             new(UserRoles.Admin)
             ];
         return roles;
-    } 
+    }
     #endregion
     #region GetRestaurants Seed
     private IEnumerable<Restaurant> GetRestaurants()
     {
+        User owner = new User()
+        {
+            Email = "seed_user@gmail.com"
+        };
         List<Restaurant> restaurants = [
             new()
              {
+                Owner=owner,
                 Name = "KFC",
                 Category = "Fast Food",
                 Description =
@@ -82,6 +87,7 @@ internal class RestaurantsSeeders(RestaurantsDbContext dbContext) : IRestaurants
             },
             new ()
             {
+                Owner=owner,
                 Name = "McDonald",
                 Category = "Fast Food",
                 Description =
@@ -97,6 +103,6 @@ internal class RestaurantsSeeders(RestaurantsDbContext dbContext) : IRestaurants
             }
         ];
         return restaurants;
-    } 
+    }
     #endregion
 }
