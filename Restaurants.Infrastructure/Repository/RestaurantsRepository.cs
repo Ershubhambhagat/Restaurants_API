@@ -36,17 +36,20 @@ internal class RestaurantsRepository(RestaurantsDbContext dbContext) : IRestaura
     #endregion
 
     #region GetAllMatchAsync
-    public async Task<IEnumerable<Restaurant>> GetAllMatchAsync(string? SearchQuary,int pageSize,int pageNumber)
+    public async Task<(IEnumerable<Restaurant>,int)> GetAllMatchAsync(string? SearchQuary,int pageSize,int pageNumber)
     {
         var serchQuaryLower = SearchQuary?.ToLower();
-        var restarurant = await dbContext.Restaurants
-            .Where( q=> serchQuaryLower ==null ||q.Name.ToLower().Contains(serchQuaryLower)
-                                               || q.Description.ToLower().Contains(serchQuaryLower))
+        var baseQuary = dbContext.Restaurants
+            .Where(q => serchQuaryLower == null || q.Name.ToLower().Contains(serchQuaryLower)
+                                                || q.Description.ToLower().Contains(serchQuaryLower));
+        var TotalCount = await baseQuary.CountAsync();
+
+        var restarurant = await baseQuary
             .Skip(pageSize*(pageNumber-1))
             .Take(pageSize)
             .ToListAsync();
         
-        return restarurant;
+        return (restarurant,TotalCount);
     }
     #endregion
 
